@@ -1,0 +1,52 @@
+<!-- index.html -->
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+    <div class="">
+        <p id="time"></p>
+        <p id="state"></p>
+    </div>
+    <div class="">
+        <button onclick="start()">开始</button>
+        <button onclick="wait()">暂停/恢复</button>
+        <button onclick="finish()">完成</button>
+    </div>
+
+  <!--<script src="bundle.js"></script>-->
+  <script type="text/javascript">
+    var starttime = 10;
+    var runtime = 0;
+    var overtime = 0;
+    var timer = null;
+    var run = false;
+
+    var countdown = function () {
+        if (!run) return;
+        runtime += 1;
+        render('time', starttime - runtime);
+        if (runtime > starttime) {
+            overtime += 1;
+            render('state', '已超时:' + overtime + 's');
+        }
+    }
+    var render = function (id, text) {
+        document.getElementById(id).textContent = text;
+    }
+    var start = function () {
+        run = true;
+        timer = self.setInterval("countdown()", 1000);
+    }
+    var wait = function () {
+        run = !run;
+        render('state', run ? '' : '暂停');
+    }
+    var finish = function () {
+        self.clearTimeout(timer);
+        starttime = runtime = overtime = 0;
+        run = false;
+    }
+  </script>
+</body>
+</html>
