@@ -1,8 +1,7 @@
 <?php
 date_default_timezone_set("PRC");  
 
-// $serv = new Swoole\Server("127.0.0.1", 9501);
-$serv = new swoole_server("127.0.0.1", 9501);
+$serv = new Swoole\Server("127.0.0.1", 9501);
 
 $serv->set([
     'worker_num' => 2,   // 工作进程数量
